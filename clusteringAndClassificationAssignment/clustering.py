@@ -7,8 +7,6 @@ def squaredEuclideanDist(u, v) -> float:
     """Calculate the Euclidean squared distance between u and v.
     
     """
-    # assert type(u) == type(v), "Types of u and v must be the same."
-    
     if isinstance(u, float) or isinstance(u, int):
         # 1D case
         u = [u]
@@ -41,13 +39,11 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
     :param distMethod: Method by which the disctance between data points needs to be chosen.
     :returns: a list of sets per cluster.
     """
-    
     # Generate random start centroids  
     centroids = []
     
     if isinstance(data[0], float) or isinstance(data[0], int):
         # 1D case
-        
         min_data = min(data)
         max_data = max(data)
         for i in range(k):
@@ -62,14 +58,13 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
             for j in range(len(data[0])):
                 coord = coord + (random.uniform(min_data, max_data),)
             centroids.append(coord)
-                
+            
     
     # Generate list of empty clusters
     clusters = []
     for i in range(k):
         clusters.append(set())
     
-    print(len(centroids))
     # Fill clusters
     for datapoint in data:
         
@@ -78,7 +73,6 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
         index = 0
         while i < len(centroids):
             d = squaredEuclideanDist(datapoint, centroids[i])
-            print(i, d)
             if d < dist:
                 dist = d 
                 index = i
@@ -87,8 +81,5 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
     return clusters     
         
     
-    
-    
-l = [6, 2, 6, 2, 1, 3, 2, 4, 23, 56, 13, 46, 78, 94]
-print(kMeans(l, 2, 'a'))
+
         
