@@ -28,36 +28,6 @@ def atomcolorsandsizes():
     atomsizes['H']=300
     return atomcolors, atomsizes
     
-# class Molecule:
-#     """class to cerate molecules from atoms.
-#     """
-# 
-#     def __init__(self):
-#         self.atomlist = {} # nodes of the graph 
-#         self.bindings = [] # edges of the graph
-# 
-#     def addAtom(self, atom):
-#         """Add an atom to the molecule.
-#         """
-#         atomtype = atom.element
-#         if atomtype not in self.atomlist:
-#             self.atomlist[atomtype] = [atom.location]
-#         else:
-#             self.atomlist[atomtype].append(atom.location)
-# 
-# 
-# 
-#     def addBindings(self, bindings):
-#         """Add bonds between the atoms.
-#         """
-# 
-# 
-#     def draw(self):
-#         """Draw a molecule 
-#         """
-# 
-        
-    
 def readnodesfromfile(nodesfilename="", G=NX.Graph()):
     """ read the nodes from a file 
     each line consists of a number and the atomtype
