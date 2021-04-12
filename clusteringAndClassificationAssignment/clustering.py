@@ -27,16 +27,27 @@ def squaredEuclideanDist(u, v) -> float:
         D -= 1
                 
     return dist
-
+    
+def calculateCentroids(clusteredData: list, dim: int) -> list:
+    """Recalculate the new centroid based on the old cluster configuration.
+    
+    :param dim: required dimensions for the centroids.
+    """
+    # Check dimensions
+    new_centroids = []
+    if dim == 1:
+        for cluster in clusteredData:
+            cluster_avg = sum(cluster)/len(cluster)
+            centroid = cluster_avg
+            new_centroids.append(centroid)
 
 
 def kMeans(data: list, k: int, distMethod: str) -> set:
     """
-    k-means algorithm, using the distMethod to calculate 
-    the distance between data points.
+    k-means algorithm, using the distMethod to calculate the distance between data points.
     
     :param k: integer to decide the number of centroids.
-    :param distMethod: Method by which the disctance between data points needs to be chosen.
+    :param distMethod: Method by which the distance between data points needs to be chosen.
     :returns: a list of sets per cluster.
     """
     # Generate random start centroids  
@@ -44,6 +55,7 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
     
     if isinstance(data[0], float) or isinstance(data[0], int):
         # 1D case
+        dim = 1
         min_data = min(data)
         max_data = max(data)
         for i in range(k):
@@ -51,11 +63,12 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
         
     elif isinstance(data[0], list) or isinstance(data[0], tuple):
         # Multiple D case
+        dim = len(data[0])
         min_data = min(min(data))
         max_data = max(max(data))   
         for i in range(k):
             coord = ()
-            for j in range(len(data[0])):
+            for j in range(dim):
                 coord = coord + (random.uniform(min_data, max_data),)
             centroids.append(coord)
             
@@ -81,5 +94,6 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
     return clusters     
         
     
-
+l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
+print(kMeans(l, 2, 'a'))
         
