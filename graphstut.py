@@ -70,21 +70,15 @@ def readnodesfromfile(nodesfilename="", G=NX.Graph()):
     lines = f.readlines()
     atoms=[]
     f.close()
-    
-    atomcolors, atomsizes = atomcolorsandsizes() # generate atom colors and sizes
-    print("node numbers:")
+    # Generate atom colors and sizes
+    atomcolors, atomsizes = atomcolorsandsizes() 
     # Generate Atom objects
     for line in lines:
         [nr, atomtype] = line.split()
         atom = Atom(atomtype, atomcolors[atomtype], atomsizes[atomtype], int(nr))
         atoms.append(atom)
-        # if not atomtype in atoms.keys():
-        #     atoms[atomtype] = []
-        
-        print(nr)
         G.add_node(int(nr))
-        # atoms[atomtype].append(nr)
-    print(list(G.nodes))
+        
     return G, atoms
     
 def readedgesfromfile(edgesfilename="", G=NX.Graph()):
@@ -101,14 +95,11 @@ def readedgesfromfile(edgesfilename="", G=NX.Graph()):
     return G
     
 def makegraphfromfile(nodesfilename="", edgesfilename=""):
-    # atomcolors, atomsizes=atomcolorsandsizes()
     G=NX.Graph()
     G, atoms=readnodesfromfile(nodesfilename=nodesfilename, G=G)
     G=readedgesfromfile(edgesfilename=edgesfilename, G=G)
     print("The nodes of G are:", list(G.nodes))
-    print("Nr of node in G:", len(list(G.nodes)))
     print("The edges of G are:", list(G.edges))
-    print("Nr of edges in G:", len(list(G.edges)))
     return G, atoms #, atomcolors, atomsizes
 
 def drawGraph(G=NX.Graph(), atoms={},
@@ -124,11 +115,6 @@ nriterations=100):
     fig=P.figure()
     pos=NX.spring_layout(G, iterations=nriterations)
     
-    # for atomtype in atoms.keys():
-    #     NX.draw_networkx_nodes(G, pos, nodelist=atoms[atomtype],
-    #                             node_color=atomcolors[atomtype],
-    #                             node_size=atomsizes[atomtype])
-    
     for atom in atoms:
         NX.draw_networkx_nodes(G, pos, nodelist = [atom.location], node_color = atom.color, node_size = atom.size)
     NX.draw_networkx_edges(G,pos)
@@ -140,7 +126,5 @@ nriterations=100):
     P.show()
 
 if __name__=="__main__":
-    print("start")
     G, atoms = makegraphfromfile('fenolnodes.txt', 'fenoledges.txt')
-    
     drawGraph(G=G, atoms=atoms, nriterations=500)
