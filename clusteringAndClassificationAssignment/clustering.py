@@ -33,21 +33,31 @@ def calculateCentroids(clusteredData: list, dim: int) -> list:
     
     :param dim: required dimensions for the centroids.
     """
-    # Check dimensions
     new_centroids = []
+    # Check dimensions
     if dim == 1:
+        # 1D case
         for cluster in clusteredData:
             cluster_avg = sum(cluster)/len(cluster)
             centroid = cluster_avg
             new_centroids.append(centroid)
+    else:
+        # Multiple D case
+        for cluster in clusteredData:
+            N = len(cluster)
+            centroid = tuple(sum(x[i] for x in cluster)/N for i in range(dim))
+            new_centroids.append(centroid)
+    
+    return new_centroids
 
 
-def kMeans(data: list, k: int, distMethod: str) -> set:
+def kMeans(data: list, k: int, distMethod: str, maxit: int) -> set:
     """
     k-means algorithm, using the distMethod to calculate the distance between data points.
     
     :param k: integer to decide the number of centroids.
     :param distMethod: Method by which the distance between data points needs to be chosen.
+    :param maxit: Maximum number of iterations
     :returns: a list of sets per cluster.
     """
     # Generate random start centroids  
@@ -72,28 +82,54 @@ def kMeans(data: list, k: int, distMethod: str) -> set:
                 coord = coord + (random.uniform(min_data, max_data),)
             centroids.append(coord)
             
+    looping = True
+    itnr = 0
+    old_clusters = []
     
-    # Generate list of empty clusters
-    clusters = []
-    for i in range(k):
-        clusters.append(set())
-    
-    # Fill clusters
-    for datapoint in data:
+    while looping == True and itnr <= maxit:
         
-        dist = float('inf')
-        i = 0
-        index = 0
-        while i < len(centroids):
-            d = squaredEuclideanDist(datapoint, centroids[i])
-            if d < dist:
-                dist = d 
-                index = i
-            i += 1
-        clusters[index].add(datapoint)
-    return clusters     
+        # Generate list of empty clusters
+        clusters = []
+        for i in range(k):
+            clusters.append(set())
+        
+                
+        # Fill clusters
+        for datapoint in data:
+            
+            dist = float('inf')
+            i = 0
+            index = 0
+            while i < len(centroids):
+                d = squaredEuclideanDist(datapoint, centroids[i])
+                if d < dist:
+                    dist = d 
+                    index = i
+                i += 1
+            clusters[index].add(datapoint)
+            
+        # Calculate new centroids
+        new_centroids = calculateCentroids(clusters, dim)
+        
+        itnr += 1
+        
+        if new_centroids == centroids or clusters == old_clusters:
+            # Stop condition
+            print('centroid stop', new_centroids == centroids)
+            print('cluster stop', clusters == old_clusters)
+            looping = False
+             
+        else:
+            # Continue iterating and update parameters
+            print('Iteration', itnr)
+            centroids = new_centroids
+            old_clusters = clusters
+        
+    
+    return clusters
         
     
 l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
-print(kMeans(l, 2, 'a'))
-        
+print(kMeans(l, 2, 'a', 10))
+v = [{(1.5, 0.5), (1.2, 1.5), (0.6, 0.5), (0.5, 1.7)}, {(6, 6), (5.7, 6), (6, 5.4)}]
+# print(calculateCentroids(v, 2))        
