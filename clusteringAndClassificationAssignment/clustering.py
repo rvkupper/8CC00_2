@@ -56,10 +56,11 @@ def calculateCentroids(clusteredData: list, dim: int) -> list:
     return new_centroids
 
 
-def kMeans(data: list, k: int, distMethod: str, maxit: int) -> set:
+def kMeans(data: list, k: int, distMethod: str, maxit: int) -> list:
     """
     k-means algorithm, using the distMethod to calculate the distance between data points.
     
+    :param data: list of int, float, list or tuple values for datapoints.
     :param k: integer to decide the number of centroids.
     :param distMethod: Method by which the distance between data points needs to be chosen.
     :param maxit: Maximum number of iterations
@@ -131,7 +132,7 @@ def kMeans(data: list, k: int, distMethod: str, maxit: int) -> set:
             old_clusters = clusters
         
     
-    return clusters, centroids
+    return clusters
     
         
 def silhouetteScore(clusteredData: list) -> tuple:
