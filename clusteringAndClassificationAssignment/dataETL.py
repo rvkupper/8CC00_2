@@ -20,6 +20,9 @@ def extractData(filename: str) -> tuple:
     for line in lines:
         cellline = line.split(',')
         celllinename = cellline.pop(0)
+        for i, thing in enumerate(cellline):
+            cellline[i] = float(thing)
+        
         celllinenames.append([celllinename])
         celllines.append(cellline)
     
@@ -39,8 +42,3 @@ def selectData(data: list) -> list:
     return selected
 
     
-    
-
-data, celllinenames, genes = extractData("data/GDSC_RNA_expression.csv")
-dataSelected = selectData(data)
-print(len(dataSelected))
