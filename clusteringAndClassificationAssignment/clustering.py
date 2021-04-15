@@ -201,11 +201,13 @@ def overallCorrelationcoefficients(data: Iterable, names: list) -> dict:
     """
     correlations = {}
     data2 = data.copy()
+    names2 = names.copy()
     for i, datapoint in enumerate(data):
-        data2.remove(datapoint)
         name1 = names[i]
+        data2.remove(datapoint)
+        names2.remove(name1)
         for j, secondDatapoint in enumerate(data2):
-            name2 = names[j]
+            name2 = names2[j]
             pair = (name1[0], name2[0])
             coef = dataProcessing.correlationCoefficient(datapoint, secondDatapoint)
             correlations[pair] = coef
@@ -232,10 +234,33 @@ def nodepairFraction(overallCorrelations: dict, c:float) -> float:
     
     return frac
     
-def createEdges(c: float, edgesdict: dict):
-    """.
+def createEdges(c: float, edgesdict: dict) -> list:
     """
+    :param c: threshold value for correlation coefficient of edge 
+    :param edgesdict: dictionary containing all possible edges and their correlation coefficients.
     
+    """
+    edges = []
+    for key, val in edgesdict.items():
+        if val >= c:
+            edges.append(key)
+    
+    return edges
+    
+# def multipleKargerMinCut(graph, nrIt) -> int:
+#     print(graph)
+#     cuts = []
+#     maxIt = 5*nrIt
+#     while nrIt > 0 and maxIt > 0:
+#         print(nrIt)
+#         nrCuts = graph.kargerMinCut(graph.graph.copy())
+#         # if nrCuts != 0:
+#         cuts.append(nrCuts)
+#         nrIt -= 1
+#         maxIt -= 1
+# 
+#     minCuts = min(cuts)
+#     return cuts
         
 # l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
 # # print(kMeans(l, 2, 'a', 10))
