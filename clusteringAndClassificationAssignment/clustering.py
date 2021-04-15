@@ -2,6 +2,8 @@
 """
 
 import random
+import dataProcessing
+from collections.abc import Iterable
 
 def squaredEuclideanDist(u, v) -> float:
     """Calculate the Euclidean squared distance between u and v.
@@ -193,15 +195,47 @@ def silhouetteScore(clusteredData: list) -> tuple:
     silhouetteScore = sum(silhouettes.values())/len(silhouettes)                
     return silhouetteScore, silhouettes 
             
+
+def overallCorrelationcoefficients(data: Iterable) -> dict:
+    """Create a dict in which for each node pair the correlation coefficient is calculated.
+    """
+    correlations = {}
+    data2 = data.copy()
+    for datapoint in data:
+        data2.remove(datapoint)
+        for secondDatapoint in data2:
+            pair = (tuple(datapoint), tuple(secondDatapoint))
+            coef = dataProcessing.correlationCoefficient(datapoint, secondDatapoint)
+            correlations[pair] = coef
+    return correlations
+            
     
+
+def nodepairFraction(overallCorrelations: dict, c:float) -> float:
+    """Calculate the fraction of node pairs that have an absolute value of their correlation coefficient of at least c.
     
+    :param overallCorrelations: dictionary containing node pairs and their correlations (can be calculated with the function overallCorrelationcoefficients)
+    :param c: Threshold for fraction.
+    :returns: fraction of number of node pairs that is above threshold.
+    """
+    nodepairs = overallCorrelations.keys()
+    coefs = overallCorrelations.values()
     
+    nrOfPairs = 0
+    for coef in coefs:
+        if abs(coef) >= c:
+            nrOfPairs += 1
     
+    frac = nrOfPairs/len(nodepairs)
     
+    return frac
     
-    
-l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
-# print(kMeans(l, 2, 'a', 10))
-v = [{(1.5, 0.5), (1., 1.5), (0.5, 0.5), (0.5, 2.)}, {(6, 6), (5.5, 6), (6, 5.5)}, {(4.5, 2.), (4., 2.), (3.5, 1.5)}]
-x, y = silhouetteScore(v)
-print(x, y)
+        
+# l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
+# # print(kMeans(l, 2, 'a', 10))
+# v = [{(1.5, 0.5), (1., 1.5), (0.5, 0.5), (0.5, 2.)}, {(6, 6), (5.5, 6), (6, 5.5)}, {(4.5, 2.), (4., 2.), (3.5, 1.5)}]
+# x, y = silhouetteScore(v)
+# print(x, y)
+# l = [(1.2, 1.5, 0.2), (0.6, 0.5, 1.4), (0.5, 1.7, 3.), (1.5, 0.5, 1.7), (6, 6, 5.5), (5.7, 6, 7), (6, 5.4, 5)]
+# d = overallCorrelationcoefficients(l)
+# print(nodepairFraction(d, 0))
