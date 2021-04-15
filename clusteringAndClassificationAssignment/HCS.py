@@ -51,6 +51,5 @@ class Graph:
         mincut = len(self.graph[list(self.graph.keys())[0]])
         return mincut
         
-        
-    
+
         
