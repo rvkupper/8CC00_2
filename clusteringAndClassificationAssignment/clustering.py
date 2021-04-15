@@ -196,15 +196,17 @@ def silhouetteScore(clusteredData: list) -> tuple:
     return silhouetteScore, silhouettes 
             
 
-def overallCorrelationcoefficients(data: Iterable) -> dict:
+def overallCorrelationcoefficients(data: Iterable, names: list) -> dict:
     """Create a dict in which for each node pair the correlation coefficient is calculated.
     """
     correlations = {}
     data2 = data.copy()
-    for datapoint in data:
+    for i, datapoint in enumerate(data):
         data2.remove(datapoint)
-        for secondDatapoint in data2:
-            pair = (tuple(datapoint), tuple(secondDatapoint))
+        name1 = names[i]
+        for j, secondDatapoint in enumerate(data2):
+            name2 = names[j]
+            pair = (name1[0], name2[0])
             coef = dataProcessing.correlationCoefficient(datapoint, secondDatapoint)
             correlations[pair] = coef
     return correlations
@@ -229,6 +231,10 @@ def nodepairFraction(overallCorrelations: dict, c:float) -> float:
     frac = nrOfPairs/len(nodepairs)
     
     return frac
+    
+def createEdges(c: float, edgesdict: dict):
+    """.
+    """
     
         
 # l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
