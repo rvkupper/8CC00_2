@@ -41,4 +41,30 @@ def selectData(data: list) -> list:
     
     return selected
 
+def extractLabels(file:str) -> list:
+    """Extract labels from csv file where names are in 2nd column and labels in the 4th.
+    """
+    with open(file) as inf:
+        lines = inf.readlines()
+
+    titles = lines.pop(0)
     
+    celllinenames = []
+    labels = []
+    d = {}
+    for line in lines:
+        cellline = line.split(',')
+        celllinename = cellline[1]
+        label = cellline[3].rstrip()
+        d[celllinename] = label
+    #     celllinenames.append(celllinename)
+    #     labels.append(label)
+    # 
+    # selectedCelllines = selectData(celllinenames)
+    # selectedLabels = selectData(labels)
+    # 
+    # d = {}
+    # for i, cell in enumerate(selectedCelllines):
+    #     d[cell] = selectedLabels[i]
+    return d
+        
