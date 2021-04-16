@@ -52,6 +52,8 @@ def calculateCentroids(clusteredData: list, dim: int) -> list:
         # Multiple D case
         for cluster in clusteredData:
             N = len(cluster)
+            if N == 0: # Avoid division by 0
+                N = 1
             centroid = tuple(sum(x[i] for x in cluster)/N for i in range(dim))
             new_centroids.append(centroid)
     
@@ -114,7 +116,7 @@ def kMeans(data: list, k: int, distMethod: str, maxit: int) -> list:
                     dist = d 
                     index = i
                 i += 1
-            clusters[index].add(datapoint)
+            clusters[index].add(tuple(datapoint))
             
         # Calculate new centroids
         new_centroids = calculateCentroids(clusters, dim)
@@ -123,13 +125,13 @@ def kMeans(data: list, k: int, distMethod: str, maxit: int) -> list:
         
         if new_centroids == centroids or clusters == old_clusters:
             # Stop condition
-            print('centroid stop', new_centroids == centroids)
-            print('cluster stop', clusters == old_clusters)
+            # print('centroid stop', new_centroids == centroids)
+            # print('cluster stop', clusters == old_clusters)
             looping = False
              
         else:
             # Continue iterating and update parameters
-            print('Iteration', itnr)
+            # print('Iteration', itnr)
             centroids = new_centroids
             old_clusters = clusters
         
@@ -152,6 +154,8 @@ def silhouetteScore(clusteredData: list) -> tuple:
     meanOtherClusters = {}
     silhouettes = {}
     for cluster in clusteredData:
+        # if len(cluster) == 0:
+        #     print("Empty cluster present")
         datapoints = list(cluster)
         
         # Create list for the clusters that active_point is not part of
@@ -165,7 +169,10 @@ def silhouetteScore(clusteredData: list) -> tuple:
             for point in datapoints:
                 d = squaredEuclideanDist(active_point, point)
                 distInCluster.append(d)
-            meanDist = sum(distInCluster)/(len(distInCluster) - 1)
+            if len(distInCluster) != 1: # Avoid division by 0
+                meanDist = sum(distInCluster)/(len(distInCluster) - 1)
+            else:
+                meanDist = sum(distInCluster)
             meanWithinClusters[active_point] = meanDist
             
             # Mean distance to all points from the nearest cluster 
@@ -176,7 +183,11 @@ def silhouetteScore(clusteredData: list) -> tuple:
                     s = squaredEuclideanDist(active_point, otherPoint)
                     distOtherCluster.append(s)
                 
-                meanOtherDist = sum(distOtherCluster)/len(distOtherCluster)
+                if len(distOtherCluster) != 0: # Avoid division by 0
+                    meanOtherDist = sum(distOtherCluster)/len(distOtherCluster)
+                else:
+                    meanOtherDist = sum(distOtherCluster)
+                            
                                 
                 if active_point in meanOtherClusters:
                     if meanOtherClusters[active_point] > meanOtherDist:
@@ -188,7 +199,10 @@ def silhouetteScore(clusteredData: list) -> tuple:
             a = meanDist 
             b = meanOtherClusters[active_point]
             
-            silhouette = (b - a) / max(a, b)
+            if not (a == 0 and b == 0):
+                silhouette = (b - a) / max(a, b)
+            else:
+                silhouette = 0
             silhouettes[active_point] = silhouette
     
     # Calculate overall silhouette score
