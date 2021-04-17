@@ -4,7 +4,7 @@
 import random
 import dataProcessing
 from collections.abc import Iterable
-from HCS import Graph
+from Graph import Graph
 import copy
 
 def squaredEuclideanDist(u, v) -> float:

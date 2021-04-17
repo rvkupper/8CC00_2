@@ -1,7 +1,7 @@
 import dataETL
 import classification
 import clustering
-from HCS import Graph
+from Graph import Graph
 import copy
 
 # data = [2, 6, 2, 7, 1, 4, 3, 0]

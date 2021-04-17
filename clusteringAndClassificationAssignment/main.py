@@ -6,7 +6,7 @@ import clustering
 import classification
 import dataETL
 from numpy import arange
-from HCS import Graph
+from Graph import Graph
 from collections import Counter
 import copy
 

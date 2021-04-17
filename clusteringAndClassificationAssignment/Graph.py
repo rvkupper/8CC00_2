@@ -1,4 +1,4 @@
-"""Script for HCS clustering.
+"""Script for Graphs 
 """
 
 import random
