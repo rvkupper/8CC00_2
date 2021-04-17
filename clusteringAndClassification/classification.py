@@ -60,7 +60,7 @@ def nearestNeighbour(trainingset: Iterable, newDataPoint, k: int, trainingnames:
 def checkLabel(datapointname: str, label: str, labelsdict: dict) -> bool:
     """Checks if assigned label to datapoint is correct according to the information in the labelsdict.
     
-    :param datapoint: The point to be checked.
+    :param datapointname: The node to be checked.
     :param label: The label to be checked
     :param labelsdict: The dict in which all labels for all datapoints are stored
     :returns: True if label is correct, False if incorrect.

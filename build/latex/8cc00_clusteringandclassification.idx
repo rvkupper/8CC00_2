@@ -4,34 +4,34 @@
 \indexentry{calculateCentroids() (in module clustering)@\spxentry{calculateCentroids()}\spxextra{in module clustering}|hyperpage}{1}
 \indexentry{contractEdge() (in module clustering)@\spxentry{contractEdge()}\spxextra{in module clustering}|hyperpage}{1}
 \indexentry{createEdges() (in module clustering)@\spxentry{createEdges()}\spxextra{in module clustering}|hyperpage}{1}
-\indexentry{highlyConnected() (in module clustering)@\spxentry{highlyConnected()}\spxextra{in module clustering}|hyperpage}{1}
-\indexentry{kMeans() (in module clustering)@\spxentry{kMeans()}\spxextra{in module clustering}|hyperpage}{1}
-\indexentry{karger2subgraph() (in module clustering)@\spxentry{karger2subgraph()}\spxextra{in module clustering}|hyperpage}{1}
-\indexentry{kargerMinCut() (in module clustering)@\spxentry{kargerMinCut()}\spxextra{in module clustering}|hyperpage}{1}
+\indexentry{highlyConnected() (in module clustering)@\spxentry{highlyConnected()}\spxextra{in module clustering}|hyperpage}{2}
+\indexentry{kMeans() (in module clustering)@\spxentry{kMeans()}\spxextra{in module clustering}|hyperpage}{2}
+\indexentry{karger2subgraph() (in module clustering)@\spxentry{karger2subgraph()}\spxextra{in module clustering}|hyperpage}{2}
+\indexentry{kargerMinCut() (in module clustering)@\spxentry{kargerMinCut()}\spxextra{in module clustering}|hyperpage}{2}
 \indexentry{nodepairFraction() (in module clustering)@\spxentry{nodepairFraction()}\spxextra{in module clustering}|hyperpage}{2}
 \indexentry{overallCorrelationcoefficients() (in module clustering)@\spxentry{overallCorrelationcoefficients()}\spxextra{in module clustering}|hyperpage}{2}
-\indexentry{silhouetteScore() (in module clustering)@\spxentry{silhouetteScore()}\spxextra{in module clustering}|hyperpage}{2}
-\indexentry{squaredEuclideanDist() (in module clustering)@\spxentry{squaredEuclideanDist()}\spxextra{in module clustering}|hyperpage}{2}
+\indexentry{silhouetteScore() (in module clustering)@\spxentry{silhouetteScore()}\spxextra{in module clustering}|hyperpage}{3}
+\indexentry{squaredEuclideanDist() (in module clustering)@\spxentry{squaredEuclideanDist()}\spxextra{in module clustering}|hyperpage}{3}
 \indexentry{module@\spxentry{module}!classification@\spxentry{classification}|hyperpage}{3}
 \indexentry{classification@\spxentry{classification}!module@\spxentry{module}|hyperpage}{3}
 \indexentry{checkLabel() (in module classification)@\spxentry{checkLabel()}\spxextra{in module classification}|hyperpage}{3}
 \indexentry{findName() (in module classification)@\spxentry{findName()}\spxextra{in module classification}|hyperpage}{3}
 \indexentry{generateTrainingset() (in module classification)@\spxentry{generateTrainingset()}\spxextra{in module classification}|hyperpage}{3}
-\indexentry{nearestNeighbour() (in module classification)@\spxentry{nearestNeighbour()}\spxextra{in module classification}|hyperpage}{3}
-\indexentry{module@\spxentry{module}!dataETL@\spxentry{dataETL}|hyperpage}{3}
-\indexentry{dataETL@\spxentry{dataETL}!module@\spxentry{module}|hyperpage}{3}
-\indexentry{extractData() (in module dataETL)@\spxentry{extractData()}\spxextra{in module dataETL}|hyperpage}{3}
-\indexentry{extractLabels() (in module dataETL)@\spxentry{extractLabels()}\spxextra{in module dataETL}|hyperpage}{3}
-\indexentry{selectData() (in module dataETL)@\spxentry{selectData()}\spxextra{in module dataETL}|hyperpage}{3}
-\indexentry{module@\spxentry{module}!dataProcessing@\spxentry{dataProcessing}|hyperpage}{3}
-\indexentry{dataProcessing@\spxentry{dataProcessing}!module@\spxentry{module}|hyperpage}{3}
-\indexentry{correlationCoefficient() (in module dataProcessing)@\spxentry{correlationCoefficient()}\spxextra{in module dataProcessing}|hyperpage}{3}
-\indexentry{covariance() (in module dataProcessing)@\spxentry{covariance()}\spxextra{in module dataProcessing}|hyperpage}{3}
-\indexentry{standardDeviation() (in module dataProcessing)@\spxentry{standardDeviation()}\spxextra{in module dataProcessing}|hyperpage}{4}
-\indexentry{module@\spxentry{module}!Graph@\spxentry{Graph}|hyperpage}{4}
-\indexentry{Graph@\spxentry{Graph}!module@\spxentry{module}|hyperpage}{4}
-\indexentry{Graph (class in Graph)@\spxentry{Graph}\spxextra{class in Graph}|hyperpage}{4}
-\indexentry{removeEdge() (Graph.Graph method)@\spxentry{removeEdge()}\spxextra{Graph.Graph method}|hyperpage}{4}
-\indexentry{removeNode() (Graph.Graph method)@\spxentry{removeNode()}\spxextra{Graph.Graph method}|hyperpage}{4}
-\indexentry{module@\spxentry{module}!main@\spxentry{main}|hyperpage}{4}
-\indexentry{main@\spxentry{main}!module@\spxentry{module}|hyperpage}{4}
+\indexentry{nearestNeighbour() (in module classification)@\spxentry{nearestNeighbour()}\spxextra{in module classification}|hyperpage}{4}
+\indexentry{module@\spxentry{module}!dataETL@\spxentry{dataETL}|hyperpage}{4}
+\indexentry{dataETL@\spxentry{dataETL}!module@\spxentry{module}|hyperpage}{4}
+\indexentry{extractData() (in module dataETL)@\spxentry{extractData()}\spxextra{in module dataETL}|hyperpage}{4}
+\indexentry{extractLabels() (in module dataETL)@\spxentry{extractLabels()}\spxextra{in module dataETL}|hyperpage}{4}
+\indexentry{selectData() (in module dataETL)@\spxentry{selectData()}\spxextra{in module dataETL}|hyperpage}{4}
+\indexentry{module@\spxentry{module}!dataProcessing@\spxentry{dataProcessing}|hyperpage}{4}
+\indexentry{dataProcessing@\spxentry{dataProcessing}!module@\spxentry{module}|hyperpage}{4}
+\indexentry{correlationCoefficient() (in module dataProcessing)@\spxentry{correlationCoefficient()}\spxextra{in module dataProcessing}|hyperpage}{4}
+\indexentry{covariance() (in module dataProcessing)@\spxentry{covariance()}\spxextra{in module dataProcessing}|hyperpage}{4}
+\indexentry{standardDeviation() (in module dataProcessing)@\spxentry{standardDeviation()}\spxextra{in module dataProcessing}|hyperpage}{5}
+\indexentry{module@\spxentry{module}!Graph@\spxentry{Graph}|hyperpage}{5}
+\indexentry{Graph@\spxentry{Graph}!module@\spxentry{module}|hyperpage}{5}
+\indexentry{Graph (class in Graph)@\spxentry{Graph}\spxextra{class in Graph}|hyperpage}{5}
+\indexentry{removeEdge() (Graph.Graph method)@\spxentry{removeEdge()}\spxextra{Graph.Graph method}|hyperpage}{5}
+\indexentry{removeNode() (Graph.Graph method)@\spxentry{removeNode()}\spxextra{Graph.Graph method}|hyperpage}{5}
+\indexentry{module@\spxentry{module}!main@\spxentry{main}|hyperpage}{5}
+\indexentry{main@\spxentry{main}!module@\spxentry{module}|hyperpage}{5}

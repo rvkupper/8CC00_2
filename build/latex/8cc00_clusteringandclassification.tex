@@ -101,9 +101,34 @@ Python scipt for clustering of data by means of k\sphinxhyphen{}means, evaluatio
 \index{HCS() (in module clustering)@\spxentry{HCS()}\spxextra{in module clustering}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{clustering:clustering.HCS}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{HCS}}}{\emph{\DUrole{n}{graph}\DUrole{p}{:} \DUrole{n}{dict}}, \emph{\DUrole{n}{originalEdges}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{nrIt}\DUrole{p}{:} \DUrole{n}{int} \DUrole{o}{=} \DUrole{default_value}{10}}, \emph{\DUrole{n}{clusters}\DUrole{o}{=}\DUrole{default_value}{{[}{]}}}}{}
+\phantomsection\label{\detokenize{clustering:clustering.HCS}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{HCS}}}{\emph{\DUrole{n}{graph}\DUrole{p}{:} \DUrole{n}{dict}}, \emph{\DUrole{n}{originalEdges}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{nrIt}\DUrole{p}{:} \DUrole{n}{int} \DUrole{o}{=} \DUrole{default_value}{10}}, \emph{\DUrole{n}{clusters}\DUrole{o}{=}\DUrole{default_value}{{[}{]}}}}{{ $\rightarrow$ list}}
 \sphinxAtStartPar
-Highly connected subgraph clustering.
+Highly connected subgraph clustering, using Karger cut.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{graph}} \textendash{} graph dict on which to perform HCS clustering.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{originalEdges}} \textendash{} edges of the graph.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{nrIt}} \textendash{} nr of iterations that the kargercut should be performed to assume the minimum cut is reached.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{clusters}} \textendash{} parameter to remember previous clusters during recursion. Should be the empty list when called for the first time.
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+list containing the clusters in graph dict format.
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -114,9 +139,16 @@ Highly connected subgraph clustering.
 \sphinxAtStartPar
 Recalculate the new centroid based on the averages in the old cluster configuration.
 \begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{clusteredData}} \textendash{} list containing the old clusters.
+
+\item {} 
 \sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{dim}} \textendash{} required dimensions for the centroids.
+
+\end{itemize}
 
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
@@ -131,14 +163,37 @@ List containing new centroids on the position of the average of the cluster.
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{clustering:clustering.contractEdge}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{contractEdge}}}{\emph{\DUrole{n}{graph}\DUrole{p}{:} \DUrole{n}{dict}}, \emph{\DUrole{n}{v}\DUrole{p}{:} \DUrole{n}{str}}, \emph{\DUrole{n}{w}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ None}}
 \sphinxAtStartPar
-.
+Edgecontraction. Create one supernode from two nodes.
+
+\sphinxAtStartPar
+Warning: The original graph is overwritten.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{graph}} \textendash{} dict of graph in which edges need to be contracted.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{v}} \textendash{} first node to be merged into supernode.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{w}} \textendash{} second node to be merged into supernode.
+
+\end{itemize}
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
 \index{createEdges() (in module clustering)@\spxentry{createEdges()}\spxextra{in module clustering}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{clustering:clustering.createEdges}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{createEdges}}}{\emph{\DUrole{n}{c}\DUrole{p}{:} \DUrole{n}{float}}, \emph{\DUrole{n}{edgesdict}\DUrole{p}{:} \DUrole{n}{dict}}}{{ $\rightarrow$ list}}~\begin{quote}\begin{description}
+\phantomsection\label{\detokenize{clustering:clustering.createEdges}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{createEdges}}}{\emph{\DUrole{n}{c}\DUrole{p}{:} \DUrole{n}{float}}, \emph{\DUrole{n}{edgesdict}\DUrole{p}{:} \DUrole{n}{dict}}}{{ $\rightarrow$ list}}
+\sphinxAtStartPar
+Evaluate whether the correlation of an edge is above c and return     a list of edges that does.
+\begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
@@ -165,6 +220,17 @@ List like {[}(node1, node2), (node1, node3){]} where nodes are strings.
 \sphinxAtStartPar
 Decide whether graph is highly connected.
 \begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{graph}} \textendash{} dict of graph to decide on.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{mincut}} \textendash{} minimum number of cuts.
+
+\end{itemize}
+
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
 minimumcut \textgreater{} nrNodes/2
@@ -210,16 +276,40 @@ a list of sets per cluster.
 \index{karger2subgraph() (in module clustering)@\spxentry{karger2subgraph()}\spxextra{in module clustering}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{clustering:clustering.karger2subgraph}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{karger2subgraph}}}{\emph{\DUrole{n}{supernodesgraph}\DUrole{p}{:} \DUrole{n}{dict}}, \emph{\DUrole{n}{originalEdges}\DUrole{p}{:} \DUrole{n}{list}}}{}
+\phantomsection\label{\detokenize{clustering:clustering.karger2subgraph}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{karger2subgraph}}}{\emph{\DUrole{n}{supernodesgraph}\DUrole{p}{:} \DUrole{n}{dict}}, \emph{\DUrole{n}{originalEdges}\DUrole{p}{:} \DUrole{n}{list}}}{{ $\rightarrow$ tuple}}
 \sphinxAtStartPar
 Create subgraphs from the resulting supernodes graph after kargercut.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{supernodesgraph}} \textendash{} the two supernodes that remain after Karger cut.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{originalEdges}} \textendash{} list of edges from the original graph (before the cut).
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+tuple containing two subgraphs in dict format.
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
 \index{kargerMinCut() (in module clustering)@\spxentry{kargerMinCut()}\spxextra{in module clustering}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{clustering:clustering.kargerMinCut}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{kargerMinCut}}}{\emph{\DUrole{n}{g}\DUrole{p}{:} \DUrole{n}{dict}}}{{ $\rightarrow$ tuple}}~\begin{quote}\begin{description}
+\phantomsection\label{\detokenize{clustering:clustering.kargerMinCut}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{clustering.}}\sphinxbfcode{\sphinxupquote{kargerMinCut}}}{\emph{\DUrole{n}{g}\DUrole{p}{:} \DUrole{n}{dict}}}{{ $\rightarrow$ tuple}}
+\sphinxAtStartPar
+Perform a kargercut in a graph.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{g}} \textendash{} dict of graph in which karger cut needs to be done.
+
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
 minimum nr of edges that need to be cut, graph that remains
@@ -261,6 +351,17 @@ fraction of number of node pairs that is above threshold.
 \sphinxAtStartPar
 Create a dict in which for each node pair the correlation coefficient is calculated.
 \begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{data}} \textendash{} iterable containing coordinates for each datapoint.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{names}} \textendash{} isterable containing respective names for each datapoint in data.
+
+\end{itemize}
+
 \item[{Returns}] \leavevmode
 \sphinxAtStartPar
 Dict like \{(node1, node2): correlationcoefficient\} where the nodes are strings and the correlation coefficient is a float.
@@ -284,14 +385,10 @@ Calculate silhouette score for clustered data.     Function returns tuple contai
 \sphinxAtStartPar
 (float, dict) where the float is the overall silhouette score for the clustering and the dict contains the silhouette per datapoint like \{(coordinate): silhouette\}
 
-\item[{Examples}] \leavevmode
 \end{description}\end{quote}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{g+gp}{\PYGZgt{}\PYGZgt{}\PYGZgt{} }\PYG{n}{v} \PYG{o}{=} \PYG{p}{[}\PYG{p}{\PYGZob{}}\PYG{p}{(}\PYG{l+m+mf}{1.5}\PYG{p}{,} \PYG{l+m+mf}{0.5}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mf}{1.}\PYG{p}{,} \PYG{l+m+mf}{1.5}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{l+m+mf}{0.5}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{l+m+mf}{2.}\PYG{p}{)}\PYG{p}{\PYGZcb{}}\PYG{p}{,} \PYG{p}{\PYGZob{}}\PYG{p}{(}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mf}{5.5}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mf}{5.5}\PYG{p}{)}\PYG{p}{\PYGZcb{}}\PYG{p}{,} \PYG{p}{\PYGZob{}}\PYG{p}{(}\PYG{l+m+mf}{4.5}\PYG{p}{,} \PYG{l+m+mf}{2.}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mf}{4.}\PYG{p}{,} \PYG{l+m+mf}{2.}\PYG{p}{)}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mf}{3.5}\PYG{p}{,} \PYG{l+m+mf}{1.5}\PYG{p}{)}\PYG{p}{\PYGZcb{}}\PYG{p}{]}
-\end{sphinxVerbatim}
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{g+gp}{\PYGZgt{}\PYGZgt{}\PYGZgt{} }\PYG{n}{x}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{silhouetteScore}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)}
 \PYG{g+go}{0.9352832294102621 \PYGZob{}(1.0, 1.5): 0.8928571428571429, (0.5, 0.5): 0.924812030075188, (1.5, 0.5): 0.8567493112947658, (0.5, 2.0): 0.8986666666666667, (6, 6): 0.9884169884169884, (6, 5.5): 0.9858490566037735, (5.5, 6): 0.9873949579831933, (4.5, 2.0): 0.9482758620689655, (3.5, 1.5): 0.9147540983606557, (4.0, 2.0): 0.9550561797752809\PYGZcb{}}
 \end{sphinxVerbatim}
@@ -329,17 +426,34 @@ float of Euclidean squared distance between u and v.
 \section{Classification module}
 \label{\detokenize{classification:module-classification}}\label{\detokenize{classification:classification-module}}\label{\detokenize{classification::doc}}\index{module@\spxentry{module}!classification@\spxentry{classification}}\index{classification@\spxentry{classification}!module@\spxentry{module}}
 \sphinxAtStartPar
-Script for classification assignment
+Script for k nearest neighbour classification and trainingsset generation.
 \index{checkLabel() (in module classification)@\spxentry{checkLabel()}\spxextra{in module classification}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{classification:classification.checkLabel}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{classification.}}\sphinxbfcode{\sphinxupquote{checkLabel}}}{\emph{\DUrole{n}{datapointname}\DUrole{p}{:} \DUrole{n}{str}}, \emph{\DUrole{n}{label}\DUrole{p}{:} \DUrole{n}{str}}, \emph{\DUrole{n}{labelsdict}\DUrole{p}{:} \DUrole{n}{dict}}}{{ $\rightarrow$ bool}}
 \sphinxAtStartPar
 Checks if assigned label to datapoint is correct according to the information in the labelsdict.
-:param datapoint: The point to be checked.
-:param label: The label to be checked
-:param labelsdict: The dict in which all labels for all datapoints are stored
-:returns: True if label is correct, False if incorrect.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{datapointname}} \textendash{} The node to be checked.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{label}} \textendash{} The label to be checked
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{labelsdict}} \textendash{} The dict in which all labels for all datapoints are stored
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+True if label is correct, False if incorrect.
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -349,6 +463,27 @@ Checks if assigned label to datapoint is correct according to the information in
 \phantomsection\label{\detokenize{classification:classification.findName}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{classification.}}\sphinxbfcode{\sphinxupquote{findName}}}{\emph{\DUrole{n}{point}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{data}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{names}\DUrole{p}{:} \DUrole{n}{list}}}{{ $\rightarrow$ str}}
 \sphinxAtStartPar
 Find name that belongs to a datapoint. Note that data and names indices should match.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{point}} \textendash{} list containing coordinate of the point to be named.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{data}} \textendash{} list containing all points, including above point.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{names}} \textendash{} list containing respective names of points in data.
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+name of point
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -358,10 +493,27 @@ Find name that belongs to a datapoint. Note that data and names indices should m
 \phantomsection\label{\detokenize{classification:classification.generateTrainingset}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{classification.}}\sphinxbfcode{\sphinxupquote{generateTrainingset}}}{\emph{\DUrole{n}{fulldataset}\DUrole{p}{:} \DUrole{n}{collections.abc.Iterable}}, \emph{\DUrole{n}{i}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{names}\DUrole{p}{:} \DUrole{n}{list}}}{{ $\rightarrow$ tuple}}
 \sphinxAtStartPar
 Generate a leave\sphinxhyphen{}one\sphinxhyphen{}out trainingsset at index i and return both.
-:param fulldataset: the full dataset to be used 
-:param i: the index of the point to be left out 
-:param names: list of names for the datapoints
-:returns: tuple containing trainingset, trainingnames, (new point name, new point coordinate)
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{fulldataset}} \textendash{} the full dataset to be used
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{i}} \textendash{} the index of the point to be left out
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{names}} \textendash{} list of names for the datapoints
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+tuple containing trainingset, trainingnames, (new point name, new point coordinate)
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -371,7 +523,35 @@ Generate a leave\sphinxhyphen{}one\sphinxhyphen{}out trainingsset at index i and
 \phantomsection\label{\detokenize{classification:classification.nearestNeighbour}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{classification.}}\sphinxbfcode{\sphinxupquote{nearestNeighbour}}}{\emph{\DUrole{n}{trainingset}\DUrole{p}{:} \DUrole{n}{collections.abc.Iterable}}, \emph{\DUrole{n}{newDataPoint}}, \emph{\DUrole{n}{k}\DUrole{p}{:} \DUrole{n}{int}}, \emph{\DUrole{n}{trainingnames}\DUrole{p}{:} \DUrole{n}{list}}, \emph{\DUrole{n}{labelsdict}\DUrole{p}{:} \DUrole{n}{dict}}, \emph{\DUrole{n}{distMethod}\DUrole{p}{:} \DUrole{n}{str} \DUrole{o}{=} \DUrole{default_value}{\textquotesingle{}sqEucl\textquotesingle{}}}}{{ $\rightarrow$ str}}
 \sphinxAtStartPar
 Nearest neighbour algorithm for classification of data.
-:returns: label for new datapoint
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{trainingset}} \textendash{} dataset that does not contain newDataPoint.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{newDataPoint}} \textendash{} datapoint to be labelled. May be int, float, list or tuple.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{k}} \textendash{} nr of neighbours to be considered.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{labelsdict}} \textendash{} dict containing labels for datapoints in trainingset
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{distMethod}} \textendash{} method of distance calculation to be used. (to be implemented)
+
+\end{itemize}
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+label for new datapoint
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
@@ -387,15 +567,25 @@ Extraction, transformation and loading of data.
 \phantomsection\label{\detokenize{dataETL:dataETL.extractData}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dataETL.}}\sphinxbfcode{\sphinxupquote{extractData}}}{\emph{\DUrole{n}{filename}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ tuple}}
 \sphinxAtStartPar
 Extract data from file.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{filename}} \textendash{} name of the file from which data should be extracted.
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+cellline coordinates, celllinenames, genenames
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 
 \index{extractLabels() (in module dataETL)@\spxentry{extractLabels()}\spxextra{in module dataETL}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{dataETL:dataETL.extractLabels}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dataETL.}}\sphinxbfcode{\sphinxupquote{extractLabels}}}{\emph{\DUrole{n}{file}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ list}}
+\phantomsection\label{\detokenize{dataETL:dataETL.extractLabels}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dataETL.}}\sphinxbfcode{\sphinxupquote{extractLabels}}}{\emph{\DUrole{n}{file}\DUrole{p}{:} \DUrole{n}{str}}}{{ $\rightarrow$ dict}}
 \sphinxAtStartPar
-Extract labels from csv file where names are in 2nd column and labels in the 4th.
+Extract labels from csv file where names are in 2nd column and     labels in the 4th and return in dict.
 
 \end{fulllineitems}
 
@@ -404,7 +594,7 @@ Extract labels from csv file where names are in 2nd column and labels in the 4th
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{dataETL:dataETL.selectData}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dataETL.}}\sphinxbfcode{\sphinxupquote{selectData}}}{\emph{\DUrole{n}{data}\DUrole{p}{:} \DUrole{n}{list}}}{{ $\rightarrow$ list}}
 \sphinxAtStartPar
-Select the desired data.
+Select the data from the 145 cell lines that were assigned to me by email.
 
 \end{fulllineitems}
 
@@ -413,16 +603,13 @@ Select the desired data.
 \section{Data processing module}
 \label{\detokenize{dataProcessing:module-dataProcessing}}\label{\detokenize{dataProcessing:data-processing-module}}\label{\detokenize{dataProcessing::doc}}\index{module@\spxentry{module}!dataProcessing@\spxentry{dataProcessing}}\index{dataProcessing@\spxentry{dataProcessing}!module@\spxentry{module}}
 \sphinxAtStartPar
-Some functions for the processing of data.
+Some basic functions for the processing of data.
 \index{correlationCoefficient() (in module dataProcessing)@\spxentry{correlationCoefficient()}\spxextra{in module dataProcessing}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{dataProcessing:dataProcessing.correlationCoefficient}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{dataProcessing.}}\sphinxbfcode{\sphinxupquote{correlationCoefficient}}}{\emph{\DUrole{n}{param1}\DUrole{p}{:} \DUrole{n}{collections.abc.Iterable}}, \emph{\DUrole{n}{param2}\DUrole{p}{:} \DUrole{n}{collections.abc.Iterable}}}{{ $\rightarrow$ float}}
 \sphinxAtStartPar
 Calculate the Pearson correlation coefficient of two parameters.
-\begin{quote}\begin{description}
-\item[{Examples}] \leavevmode
-\end{description}\end{quote}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{g+gp}{\PYGZgt{}\PYGZgt{}\PYGZgt{} }\PYG{n}{correlationCoefficient}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{]}\PYG{p}{,} \PYG{p}{[}\PYG{l+m+mf}{0.11}\PYG{p}{,} \PYG{l+m+mf}{0.12}\PYG{p}{,} \PYG{l+m+mf}{0.13}\PYG{p}{,} \PYG{l+m+mf}{0.15}\PYG{p}{,} \PYG{l+m+mf}{0.18}\PYG{p}{]}\PYG{p}{)}
@@ -476,7 +663,14 @@ covariance of param1 and param2.
 \sphinxAtStartPar
 Calculate the standard deviation of a list of measurements.
 \begin{quote}\begin{description}
-\item[{Examples}] \leavevmode
+\item[{Parameters}] \leavevmode
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{param}} \textendash{} list of data of which the std needs to be calculated.
+
+\item[{Returns}] \leavevmode
+\sphinxAtStartPar
+standard deviation of param.
+
 \end{description}\end{quote}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
@@ -491,11 +685,11 @@ Calculate the standard deviation of a list of measurements.
 \section{Graph module}
 \label{\detokenize{Graph:module-Graph}}\label{\detokenize{Graph:graph-module}}\label{\detokenize{Graph::doc}}\index{module@\spxentry{module}!Graph@\spxentry{Graph}}\index{Graph@\spxentry{Graph}!module@\spxentry{module}}
 \sphinxAtStartPar
-Script for Graphs
+Class for Graphs.
 \index{Graph (class in Graph)@\spxentry{Graph}\spxextra{class in Graph}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{Graph:Graph.Graph}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{Graph.}}\sphinxbfcode{\sphinxupquote{Graph}}}{\emph{\DUrole{n}{edges}}}{}
+\phantomsection\label{\detokenize{Graph:Graph.Graph}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{Graph.}}\sphinxbfcode{\sphinxupquote{Graph}}}{\emph{\DUrole{n}{edges}\DUrole{p}{:} \DUrole{n}{list}}}{}
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 \index{removeEdge() (Graph.Graph method)@\spxentry{removeEdge()}\spxextra{Graph.Graph method}}

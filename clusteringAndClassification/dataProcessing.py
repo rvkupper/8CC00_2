@@ -43,7 +43,7 @@ def standardDeviation(param: list) -> float:
     
     :param param: list of data of which the std needs to be calculated.
     :returns: standard deviation of param.
-    :examples:
+    
     >>> standardDeviation([2, 4, 4, 4, 5, 5, 7, 9])
     2.0
     """
@@ -61,7 +61,6 @@ def standardDeviation(param: list) -> float:
 def correlationCoefficient(param1: Iterable, param2: Iterable) -> float:
     """Calculate the Pearson correlation coefficient of two parameters.
     
-    :examples:
     >>> correlationCoefficient([1, 2, 3, 5, 8], [0.11, 0.12, 0.13, 0.15, 0.18])
     1.0
     """
