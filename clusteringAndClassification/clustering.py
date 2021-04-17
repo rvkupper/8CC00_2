@@ -1,4 +1,4 @@
-"""Python scipt for clustering of data by means of k-means and evaluation with silhouette scores and HCS clustering.
+"""Python scipt for clustering of data by means of k-means, evaluation with silhouette scores and HCS clustering.
 """
 
 import random
@@ -13,7 +13,6 @@ def squaredEuclideanDist(u, v) -> float:
     :param u: 1D or ND coordinate in int or float, or list or tuple respecitvely.
     :param v: 1D or ND coordinate in int or float, or list or tuple respecitvely.
     :returns: float of Euclidean squared distance between u and v.
-    
     """
     if isinstance(u, float) or isinstance(u, int):
         # 1D case
@@ -39,6 +38,7 @@ def squaredEuclideanDist(u, v) -> float:
 def calculateCentroids(clusteredData: list, dim: int) -> list:
     """Recalculate the new centroid based on the averages in the old cluster configuration.
     
+    :param clusteredData: list containing the old clusters.
     :param dim: required dimensions for the centroids.
     :returns: List containing new centroids on the position of the average of the cluster.
     """
@@ -142,12 +142,16 @@ def kMeans(data: list, k: int, distMethod: str, maxit: int) -> list:
     
         
 def silhouetteScore(clusteredData: list) -> tuple:
-    """Calculate silhouette score for clustered data. Function returns tuple containing on the first index the silhouette score for the clustering and in the second index a dict containing the silhouettes for all datapoints.
+    """Calculate silhouette score for clustered data. \
+    Function returns tuple containing on the first index \
+    the silhouette score for the clustering and in the \
+    second index a dict containing the silhouettes for all \
+    datapoints.
     
     :param clusteredData: list containing sets of data per cluster 
     :returns: (float, dict) where the float is the overall silhouette score for the clustering and the dict contains the silhouette per datapoint like {(coordinate): silhouette}
-    
     :examples:
+    
     >>> v = [{(1.5, 0.5), (1., 1.5), (0.5, 0.5), (0.5, 2.)}, {(6, 6), (5.5, 6), (6, 5.5)}, {(4.5, 2.), (4., 2.), (3.5, 1.5)}]
     >>> x, y = silhouetteScore(v)
     0.9352832294102621 {(1.0, 1.5): 0.8928571428571429, (0.5, 0.5): 0.924812030075188, (1.5, 0.5): 0.8567493112947658, (0.5, 2.0): 0.8986666666666667, (6, 6): 0.9884169884169884, (6, 5.5): 0.9858490566037735, (5.5, 6): 0.9873949579831933, (4.5, 2.0): 0.9482758620689655, (3.5, 1.5): 0.9147540983606557, (4.0, 2.0): 0.9550561797752809}
@@ -214,6 +218,8 @@ def silhouetteScore(clusteredData: list) -> tuple:
 def overallCorrelationcoefficients(data: Iterable, names: list) -> dict:
     """Create a dict in which for each node pair the correlation coefficient is calculated.
     
+    :param data: iterable containing coordinates for each datapoint.
+    :param names: isterable containing respective names for each datapoint in data.
     :returns: Dict like {(node1, node2): correlationcoefficient} where the nodes are strings and the correlation coefficient is a float.
     """
     correlations = {}
@@ -252,7 +258,9 @@ def nodepairFraction(overallCorrelations: dict, c:float) -> float:
     return frac
     
 def createEdges(c: float, edgesdict: dict) -> list:
-    """
+    """Evaluate whether the correlation of an edge is above c and return \
+    a list of edges that does.
+    
     :param c: threshold value for correlation coefficient of edge 
     :param edgesdict: dictionary containing all possible edges and their correlation coefficients.
     :returns: List like [(node1, node2), (node1, node3)] where nodes are strings.
@@ -265,7 +273,13 @@ def createEdges(c: float, edgesdict: dict) -> list:
     return edges
     
 def contractEdge(graph: dict, v: str, w:str) -> None:
-    """.
+    """Edgecontraction. Create one supernode from two nodes.
+    
+    Warning: The original graph is overwritten.
+    
+    :param graph: dict of graph in which edges need to be contracted.
+    :param v: first node to be merged into supernode.
+    :param w: second node to be merged into supernode.
     """
     # print(v, graph[v])
     # print(w, graph[w])
@@ -296,10 +310,11 @@ def contractEdge(graph: dict, v: str, w:str) -> None:
     
     
 def kargerMinCut(g: dict) -> tuple:
-    """
+    """Perform a kargercut in a graph.
+    
+    :param g: dict of graph in which karger cut needs to be done.
     :returns: minimum nr of edges that need to be cut, graph that remains
     """
-    
     while len(g) > 2:
          node1 = random.choice(list(g.keys()))
          # print('node1', node1)
@@ -316,13 +331,20 @@ def kargerMinCut(g: dict) -> tuple:
     
 def highlyConnected(graph: dict, mincut:int) -> bool:
     """Decide whether graph is highly connected.
+    
+    :param graph: dict of graph to decide on.
+    :param mincut: minimum number of cuts.
     :returns: minimumcut > nrNodes/2
     """
     nrNodes = len(graph)
     return mincut > nrNodes/2
 
-def karger2subgraph(supernodesgraph: dict, originalEdges: list):
+def karger2subgraph(supernodesgraph: dict, originalEdges: list) -> tuple:
     """Create subgraphs from the resulting supernodes graph after kargercut.
+    
+    :param supernodesgraph: the two supernodes that remain after Karger cut.
+    :param originalEdges: list of edges from the original graph (before the cut).
+    :returns: tuple containing two subgraphs in dict format.
     """
     subgraphs = list(supernodesgraph.keys())
     graphs = []
@@ -337,8 +359,14 @@ def karger2subgraph(supernodesgraph: dict, originalEdges: list):
         graphs.append(Graph(subgraphEdges).graph)
     return graphs[0], graphs[1]
     
-def HCS(graph: dict, originalEdges: list, nrIt:int = 10, clusters = []):
-    """Highly connected subgraph clustering.
+def HCS(graph: dict, originalEdges: list, nrIt:int = 10, clusters = []) -> list:
+    """Highly connected subgraph clustering, using Karger cut.
+    
+    :param graph: graph dict on which to perform HCS clustering.
+    :param originalEdges: edges of the graph.
+    :param nrIt: nr of iterations that the kargercut should be performed to assume the minimum cut is reached.
+    :param clusters: parameter to remember previous clusters during recursion. Should be the empty list when called for the first time.
+    :returns: list containing the clusters in graph dict format. 
     """
     # Check disconnected subgraphs
     if len(graph) == 0:

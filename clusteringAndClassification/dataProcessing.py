@@ -1,4 +1,4 @@
-"""Some functions for the processing of data.
+"""Some basic functions for the processing of data.
 """
 from math import sqrt
 from collections.abc import Iterable
@@ -41,6 +41,8 @@ def covariance(param1: list, param2: list) -> float:
 def standardDeviation(param: list) -> float:
     """Calculate the standard deviation of a list of measurements.
     
+    :param param: list of data of which the std needs to be calculated.
+    :returns: standard deviation of param.
     :examples:
     >>> standardDeviation([2, 4, 4, 4, 5, 5, 7, 9])
     2.0

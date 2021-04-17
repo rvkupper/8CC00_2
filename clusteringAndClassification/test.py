@@ -1,3 +1,7 @@
+"""Script for testing functionality in clusteringAndClassification.
+"""
+
+
 import dataETL
 import classification
 import clustering

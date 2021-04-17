@@ -1,10 +1,12 @@
-"""Script for Graphs 
+"""Class for Graphs.
 """
 
 import random
 
 class Graph:
-    def __init__(self, edges):
+    def __init__(self, edges: list) -> None:
+        """Initialize self.graph and self.nodes.
+        """
         graph = {}
         for edge in edges:
             node1 = edge[0]
