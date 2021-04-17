@@ -5,13 +5,13 @@ import clustering
 from collections.abc import Iterable
 from collections import Counter
     
+    
 def findName(point: list, data: list, names: list) -> str:
     """Find name that belongs to a datapoint. Note that data and names indices should match.
     """
     assert len(data) == len(names), "data and names do not match"
     i = data.index(point)
     return names[i][0]
-    
     
     
 def nearestNeighbour(trainingset: Iterable, newDataPoint, k: int, trainingnames: list, labelsdict: dict, distMethod: str = "sqEucl") -> str:
@@ -54,8 +54,6 @@ def checkLabel(datapointname: str, label: str, labelsdict: dict) -> bool:
     :returns: True if label is correct, False if incorrect.
     """
     return labelsdict[datapointname] == label 
-
-
 
 
 def generateTrainingset(fulldataset: Iterable, i: int, names: list) -> tuple:
