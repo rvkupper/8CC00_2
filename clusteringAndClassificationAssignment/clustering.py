@@ -1,4 +1,4 @@
-"""Python scipt for clustering of data by means of k-means and evaluation with silhouette scores.
+"""Python scipt for clustering of data by means of k-means and evaluation with silhouette scores and HCS clustering.
 """
 
 import random
@@ -374,28 +374,3 @@ def HCS(graph: dict, originalEdges: list, nrIt:int = 10, clusters = []):
     return clusters
 
     
-    
-    
-# def multipleKargerMinCut(graph, nrIt) -> int:
-#     print(graph)
-#     cuts = []
-#     maxIt = 5*nrIt
-#     while nrIt > 0 and maxIt > 0:
-#         print(nrIt)
-#         nrCuts = graph.kargerMinCut(graph.graph.copy())
-#         # if nrCuts != 0:
-#         cuts.append(nrCuts)
-#         nrIt -= 1
-#         maxIt -= 1
-# 
-#     minCuts = min(cuts)
-#     return cuts
-        
-# l = [(1.2, 1.5), (0.6, 0.5), (0.5, 1.7), (1.5, 0.5), (6, 6), (5.7, 6), (6, 5.4)]
-# # print(kMeans(l, 2, 'a', 10))
-# v = [{(1.5, 0.5), (1., 1.5), (0.5, 0.5), (0.5, 2.)}, {(6, 6), (5.5, 6), (6, 5.5)}, {(4.5, 2.), (4., 2.), (3.5, 1.5)}]
-# x, y = silhouetteScore(v)
-# print(x, y)
-# l = [(1.2, 1.5, 0.2), (0.6, 0.5, 1.4), (0.5, 1.7, 3.), (1.5, 0.5, 1.7), (6, 6, 5.5), (5.7, 6, 7), (6, 5.4, 5)]
-# d = overallCorrelationcoefficients(l)
-# print(nodepairFraction(d, 0))

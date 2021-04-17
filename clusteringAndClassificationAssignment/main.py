@@ -36,7 +36,7 @@ if __name__ == '__main__':
         score = max(scorePerK)
         scores.append(max(scorePerK))
         print(k, "|", score)
-        
+    
     
     ## Highly connected subgraph clustering
     
@@ -107,13 +107,13 @@ if __name__ == '__main__':
             nodelabel = labels[node]
             labelcount[nodelabel] += 1
         clusterlabel = labelcount.most_common(1)[0][0]
-        
+    
         for node in cluster:
             # Count number of wrongly labelled nodes
             if not classification.checkLabel(node, clusterlabel, labels):
                 errorScoreHCS += 1    
-                
-        
+    
+    
     print("Error score for HCS classification:", errorScoreHCS)
     
     
