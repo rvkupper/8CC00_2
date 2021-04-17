@@ -4,6 +4,8 @@
 import random
 import dataProcessing
 from collections.abc import Iterable
+from HCS import Graph
+import copy
 
 def squaredEuclideanDist(u, v) -> float:
     """Calculate the Euclidean squared distance between u and v.
@@ -187,7 +189,6 @@ def silhouetteScore(clusteredData: list) -> tuple:
                     meanOtherDist = sum(distOtherCluster)/len(distOtherCluster)
                 else:
                     meanOtherDist = sum(distOtherCluster)
-                            
                                 
                 if active_point in meanOtherClusters:
                     if meanOtherClusters[active_point] > meanOtherDist:
@@ -212,6 +213,8 @@ def silhouetteScore(clusteredData: list) -> tuple:
 
 def overallCorrelationcoefficients(data: Iterable, names: list) -> dict:
     """Create a dict in which for each node pair the correlation coefficient is calculated.
+    
+    :returns: Dict like {(node1, node2): correlationcoefficient} where the nodes are strings and the correlation coefficient is a float.
     """
     correlations = {}
     data2 = data.copy()
@@ -252,7 +255,7 @@ def createEdges(c: float, edgesdict: dict) -> list:
     """
     :param c: threshold value for correlation coefficient of edge 
     :param edgesdict: dictionary containing all possible edges and their correlation coefficients.
-    
+    :returns: List like [(node1, node2), (node1, node3)] where nodes are strings.
     """
     edges = []
     for key, val in edgesdict.items():
@@ -260,6 +263,118 @@ def createEdges(c: float, edgesdict: dict) -> list:
             edges.append(key)
     
     return edges
+    
+def contractEdge(graph: dict, v: str, w:str) -> None:
+    """.
+    """
+    # print(v, graph[v])
+    # print(w, graph[w])
+    if isinstance(v, str):
+        if isinstance(w, str):
+            supernode = (v, w)
+        else:
+            supernode = (v, ) + w 
+    elif isinstance(w, str):
+        supernode = v + (w, )
+    else:
+        supernode = v + w
+    
+    graph[supernode] = graph[v]
+    for node in graph[w]:
+         if node != v:  
+             graph[supernode].append(node)
+         # if w in graph[node]:
+         graph[node].remove(w)  
+         if node != v:
+              graph[node].append(supernode)
+    for node in graph[v]:
+         if v in graph[node]:
+             graph[node].remove(v)
+             graph[node].append(supernode)
+    del graph[w]  
+    del graph[v]
+    
+    
+def kargerMinCut(g: dict) -> tuple:
+    """
+    :returns: minimum nr of edges that need to be cut, graph that remains
+    """
+    
+    while len(g) > 2:
+         node1 = random.choice(list(g.keys()))
+         # print('node1', node1)
+         if g[node1] == []:
+             del g[node1]
+             # print('deleted')
+             continue
+         node2 = random.choice(g[node1])
+         # print('node2', node2)
+         contractEdge(g, node1, node2)
+    
+    mincut = len(g[list(g.keys())[0]])
+    return mincut, g
+    
+def highlyConnected(graph: dict, mincut:int) -> bool:
+    """Decide whether graph is highly connected.
+    :returns: minimumcut > nrNodes/2
+    """
+    nrNodes = len(graph)
+    return mincut > nrNodes/2
+
+def karger2subgraph(supernodesgraph: dict, originalEdges: list):
+    """Create subgraphs from the resulting supernodes graph after kargercut.
+    """
+    subgraphs = list(supernodesgraph.keys())
+    graphs = []
+    
+    for subgraph in subgraphs:
+        subgraphEdges = []
+        for edge in originalEdges:
+            node1 = edge[0]
+            node2 = edge[1]
+            if node1 in subgraph and node2 in subgraph:
+                subgraphEdges.append(edge)
+        graphs.append(Graph(subgraphEdges).graph)
+    return graphs[0], graphs[1]
+    
+def HCS(graph: dict, originalEdges: list, nrIt:int = 10, clusters = []):
+    """Highly connected subgraph clustering.
+    """
+    # Check disconnected subgraphs
+    if len(graph) == 0:
+        # print("Singlet thrown away")
+        return
+    
+    # Determine mincut with karger
+    cuts = []
+    gs = []
+    newIt = 0
+    maxIt = 5*nrIt
+    while nrIt > 0 and maxIt > 0:
+        nrCuts , g = kargerMinCut(copy.deepcopy(graph))
+        if nrCuts != 0:
+            cuts.append(nrCuts)
+            gs.append(g)
+            nrIt -= 1
+            newIt +=1
+        maxIt -= 1
+
+    minCuts = min(cuts)
+    
+    # Check if highly connected 
+    if highlyConnected(graph, minCuts):
+        clusters.append(graph)
+        
+    else:
+        kargergraph = gs[cuts.index(minCuts)]
+        h1, h2 = karger2subgraph(kargergraph, originalEdges)
+        HCS(h1, originalEdges, nrIt = newIt, clusters = clusters)
+        HCS(h2, originalEdges, nrIt = newIt, clusters = clusters)
+    
+    return clusters
+
+    
+    
     
 # def multipleKargerMinCut(graph, nrIt) -> int:
 #     print(graph)
