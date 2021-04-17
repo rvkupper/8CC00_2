@@ -1,7 +1,7 @@
 # 8CC00_2
 
 ## Code
-This code consists of 7 python files:
+The code consists of 7 relevant python files which can be found in 'clusteringAndClassification':
 
 * **main.py**: the main code file with which the assignments were done.
 * **dataETL.py**: file containing functions for extraction, tranformation and loading of the data. These functions were specifically designed based on the format of the data that was provided for this project.
@@ -13,3 +13,6 @@ This code consists of 7 python files:
 
 ## Report
 The report can be found in the folder 'Report'.
+
+## Documentation 
+Documentation can be found in 'build/latex/8cc00_clusteringandclassification.pdf'
